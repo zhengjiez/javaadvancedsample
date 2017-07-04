@@ -1,0 +1,126 @@
+https://github.com/buckyroberts/Source-Code-from-Tutorials/tree/master/JavaFX
+
+Java lambda function
+https://www.youtube.com/watch?v=a450CqNXFgs
+
+Sorting
+=======
+
+class Person {
+	String name;
+	int age;
+	String getName() {return name;}
+	int getAge() { return age; }
+}
+
+List<Person> list = ... ;
+
+Method 1: using Compartor class
+
+class ComparePersonsByName implements Comparator<Person> {
+	@Override
+	public int compare(Person p1, Person p2) {
+		return p1.getName().compareTo(p2.getName());
+	}
+
+}
+Collection.sort(list, new ComparePersonByName());
+
+
+Method 2: using lamba function
+
+Collection.sort(list, (Person p1, Person p2) ->
+	p1.getName().compareTo(p2.getName())
+);
+
+Method 3: Reduce the clutter further
+
+Collection.sort(list, 
+	(p1, p2) -> p1.getName().compareTo(p2.getName())
+);
+
+
+Functional interfaces
+=====================
+
+interface Runnable {
+	public void run();
+}
+
+new Thread (new Runnable() {
+	@Override
+	public void run() {
+		System.out.println("Hello, thread!");
+	}
+});
+
+new Thread (() -> System.out.println("Hello, thread!"));
+
+ForEach
+=======
+
+List<Person> list = ...;
+List<Person> list = Collections.synchronizedList(...);
+
+for (Person p : list) {
+	System.out.println(p);
+}
+
+list.forEach(p -> System.out.println(p));
+
+
+Remove
+======
+
+for (Iterator<Person> iter = list.iterator(); iter.hasNext(); ) {
+	Person p = iter.next();
+
+	if ("Jones".equals(p.getName())) {
+		iter.remove();
+	}
+}
+
+list.removeIf(p -> "Jones".equals(p.getName()));
+
+
+Default methods
+===============
+
+Iterable.forEach(lambda);
+Collection.removeIf(lambda);
+List.replaceAll(lambda)
+List.sort(lambda);
+
+Collection.sort(list, 
+	(p1, p2) -> p1.getName().compareTo(p2.getName())
+);
+
+list.sort(
+	(p1, p2) -> p1.getName().compareTo(p2.getName()));
+
+list.sort(Comparator.comparing(p -> p.getName()));
+
+method references
+
+list.sort(Comparator.comparing(Person::getName));
+
+
+Two-level sorting
+=================
+
+list.sort(new Comparator<Person>() {
+	@Override
+	int compare(Person p1, Person p2) {
+		int r = ((Integer) p1.getAge().compareTo(p2.getAge()));
+
+		if (r != 0) {
+		    return r;
+		}
+        return p1.getName().compareTo(p2.getName());
+	}
+});
+
+list.sort(
+    Comparator.comparing(Person::getAge)
+    .thenComparing(Person::getName)
+)

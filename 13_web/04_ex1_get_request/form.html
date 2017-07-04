@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>Fill-in Form</title>
+</head>
+<body>
+<!--A call to our servlet-->
+<!--Once we submit the data, it RetrieveFieldsServlet will be loaded-->
+<form name="mailing" action="http://localhost:8080/examples/servlets/servlet/RetrieveFieldsServlet">
+    <p>Name <br />
+    <input type="text" name="fullname" size="50" /></p>
+
+    <p>Street Address <br />
+    <input type="text" name="address" size="50" /></p>
+
+    <p>City, State, Zip <br />
+    <input type="text" name="city" size="25" />
+    <input type="text" name="state" size="2" />
+    <input type="text" name="zip" size="5" /></p>
+    <input type="submit" value="Submit" />
+
+    <!--Not implemented-->
+    <input type="button" name="clear" value="Clear Fields" 
+       onclick = "clearFields();"/>
+</form>
+</body>
+</html>
